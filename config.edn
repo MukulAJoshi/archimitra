@@ -1,0 +1,26 @@
+;; vim: ft=clojure
+{:prod {:org.archimitra/enable-web true
+        :org.archimitra/enable-worker true
+        :biff.xtdb/dir "storage/xtdb"
+        :biff.xtdb/topology :standalone
+        ;; Standalone topology in production isn't recommended for anything
+        ;; serious. You can uncomment the following to use managed postgres
+        ;; instead.
+        ;; :biff.xtdb/topology :jdbc
+        ;; :biff.xtdb.jdbc/jdbcUrl "postgresql://user:password@host:port/dbname?sslmode=require"
+        :biff/base-url "https://example.com"
+        :mailersend/api-key nil
+        :mailersend/defaults {[:from :email] "hello@mail.example.com"
+                              [:from :name] "My Application"
+                              [:reply_to :email] "hello@example.com"
+                              [:reply_to :name] "My Application"}
+        :biff.middleware/cookie-secret "eFywjtYYvt0KuK+TI3tQUw=="
+        :biff/jwt-secret "usQO/+LtD9PajjnfMu0nANFer7Iq5MFS0xPy8+3IgIY="}
+ :dev {:merge [:prod]
+       ;; See org.archimitra.feat.worker
+       ;; :org.archimitra/enable-worker false
+       :org.archimitra/enable-hawk true
+       :biff/host "0.0.0.0"
+       :biff/base-url "http://localhost:8080"
+       :biff.xtdb/topology :standalone
+       :biff.middleware/secure false}}
